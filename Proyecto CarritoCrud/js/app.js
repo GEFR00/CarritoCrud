@@ -51,12 +51,9 @@ function eliminarCurso(e) {
 
 function vaciarCarrito(e) {
 
-    e.preventDefault();
-
     if(articulos.length !== 0) {
         
         articulos.length = 0; 
-        
         //Limpia el HTML 
         limpiarHTML();
 
@@ -69,7 +66,6 @@ function vaciarCarrito(e) {
 //Lee los datos del curso y los almacena
 
 function leerDatosCurso( curso ) {
-    // console.log(curso)
 
     //Objeto con la info del curso elegido
     const infoCurso = {
@@ -98,9 +94,6 @@ function leerDatosCurso( curso ) {
         //Agrega los cursos elegidos al array articulos
         articulos.push( infoCurso )
     }
-
-    // console.log(infoCurso);
-    console.log(articulos);
 
     carritoHTML();
 }
