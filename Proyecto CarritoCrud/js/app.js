@@ -10,6 +10,12 @@ function cargarEventListeners() {
 
     //Agrega curso al apretar boton Agregar al carrito
     listaCursos.addEventListener('click', agregarCurso);
+
+    //Elimina cursos del carrito 
+    carrito.addEventListener('click', eliminarCurso);
+
+    //Vaciar el carrito
+    btnVaciarCarrito.addEventListener('click', vaciarCarrito);
 }
 
 //Agrega el curso elegido
@@ -26,6 +32,40 @@ function agregarCurso(e) {
     }
 }
 
+//Elimina el curso del carrito
+
+function eliminarCurso(e) {
+
+    e.preventDefault();
+
+    if(e.target.classList.contains( 'borrar-curso' )) {
+        const cursoId = e.target.getAttribute( 'data-id' ); 
+
+        //Elimina de articulos por el data-id
+        articulos = articulos.filter( curso => curso.id !== cursoId );
+        
+        //Crea el nuevo HTML con los articulos eliminados 
+        carritoHTML();
+    }
+}
+
+function vaciarCarrito(e) {
+
+    e.preventDefault();
+
+    if(articulos.length !== 0) {
+        
+        articulos.length = 0; 
+        
+        //Itera el nuevo HTML
+        carritoHTML();
+
+    } else {
+        alert('No has agregado cursos en el carrito.')
+    }
+}
+
+
 //Lee los datos del curso y los almacena
 
 function leerDatosCurso( curso ) {
@@ -41,8 +81,23 @@ function leerDatosCurso( curso ) {
         cantidad: 1
     }
 
-    //Agrega los cursos elegidos al array articulos
-    articulos.push( infoCurso )
+    //Revisa si un elemento existe en el carrito 
+    const existe = articulos.some( curso => curso.id === infoCurso.id );
+    if( existe ) {
+        //Actualiza la cantidad 
+        const cursos = articulos.map( curso => {
+            if( curso.id === infoCurso.id ) {
+                curso.cantidad++;
+                return curso;   //retorna el objeto actualizado
+            } else {
+                return curso;   //retorna los objetos que no son los duplicados 
+            }
+        });
+        articulos = [...cursos]
+    } else {
+        //Agrega los cursos elegidos al array articulos
+        articulos.push( infoCurso )
+    }
 
     // console.log(infoCurso);
     console.log(articulos);
