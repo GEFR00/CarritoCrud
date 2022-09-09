@@ -57,8 +57,8 @@ function vaciarCarrito(e) {
         
         articulos.length = 0; 
         
-        //Itera el nuevo HTML
-        carritoHTML();
+        //Limpia el HTML 
+        limpiarHTML();
 
     } else {
         alert('No has agregado cursos en el carrito.')
